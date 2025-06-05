@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Movies.API.Controllers;
 using Movies.Data.Models;
 using Movies.Data.Repositories;
@@ -19,9 +20,41 @@ namespace Movies.Test
         }
 
         [Fact]
-        public void Test1()
+        public void GetAllMovies_ReturnSuccessIfCorrectCount()
         {
+            // Arrange
+            // Act
+            var result = _controller.GetMovies();
 
+            // Assert
+            Assert.IsType<OkObjectResult>(result.Result);
+
+            var list = result.Result as OkObjectResult;
+
+            Assert.IsType<List<Movie>>(list.Value);
+
+            var listMovies = list.Value as List<Movie>;
+
+            Assert.Equal(4, listMovies.Count);
+        }
+
+        [Fact]
+        public void GetAllMovies_ReturnSuccessIfWrongCount()
+        {
+            // Arrange
+            // Act
+            var result = _controller.GetMovies();
+
+            // Assert
+            Assert.IsType<OkObjectResult>(result.Result);
+
+            var list = result.Result as OkObjectResult;
+
+            Assert.IsType<List<Movie>>(list.Value);
+
+            var listMovies = list.Value as List<Movie>;
+
+            Assert.NotEqual(5, listMovies.Count);
         }
     }
 }
