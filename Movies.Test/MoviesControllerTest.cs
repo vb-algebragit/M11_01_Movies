@@ -118,5 +118,24 @@ namespace Movies.Test
             Assert.IsType<BadRequestResult>(badResponse);
         }
 
+        [Theory]
+        [InlineData(7)]
+        public void Remove_GetExistingMovieById_ReturnsOkObjectResult(int id)
+        {
+            // Arrange
+            // Act
+            var okResult = _controller.DeleteMovie(id);
+
+            // Assert
+            var result = _controller.GetMovies();
+            Assert.IsType<OkObjectResult>(result.Result);
+            var list = result.Result as OkObjectResult;
+            Assert.IsType<List<Movie>>(list.Value);
+            var listMovies = list.Value as List<Movie>;
+
+            Assert.IsType<OkObjectResult>(okResult);
+            Assert.Equal(4, listMovies.Count());
+        }
+
     }
 }
