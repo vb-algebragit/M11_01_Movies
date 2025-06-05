@@ -58,7 +58,7 @@ namespace Movies.Test
         }
 
         [Theory]
-        [InlineData(5, 55)]
+        [InlineData(1, 55)]
         public void GetMovieById_ReturnsOkObjectResult(int id1, int id2)
         {
             // Arrange
