@@ -119,7 +119,7 @@ namespace Movies.Test
         }
 
         [Theory]
-        [InlineData(7)]
+        [InlineData(8)]
         public void Remove_GetExistingMovieById_ReturnsOkObjectResult(int id)
         {
             // Arrange
