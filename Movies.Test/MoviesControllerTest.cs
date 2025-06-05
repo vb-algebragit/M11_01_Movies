@@ -58,7 +58,7 @@ namespace Movies.Test
         }
 
         [Theory]
-        [InlineData(1, 55)]
+        [InlineData(2, 55)]
         public void GetMovieById_ReturnsOkObjectResult(int id1, int id2)
         {
             // Arrange
@@ -77,6 +77,25 @@ namespace Movies.Test
             var movieItem = item.Value as Movie;
             Assert.Equal(id1, movieItem.Id);
             Assert.Equal("Die Hard", movieItem.Title);
+        }
+
+        [Fact]
+        public void Add_ValidObjectPassed_ReturnsCreatedResponse()
+        {
+            // Arrange
+            var newMovie = new Movie()
+            {
+                Id = 0,
+                Title = "The Godfather II",
+                Genre = "Crime, Drama",
+                ReleaseYear = "1978"
+            };
+
+            // Act
+            var createdResponse = _controller.PostMovie(newMovie);
+
+            // Assert
+            Assert.IsType<CreatedAtActionResult>(createdResponse);
         }
 
     }
