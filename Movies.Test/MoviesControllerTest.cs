@@ -56,5 +56,28 @@ namespace Movies.Test
 
             Assert.NotEqual(5, listMovies.Count);
         }
+
+        [Theory]
+        [InlineData(5, 55)]
+        public void GetMovieById_ReturnsOkObjectResult(int id1, int id2)
+        {
+            // Arrange
+            // Act
+            var okResult = _controller.GetMovie(id1);
+            var notFoundResult = _controller.GetMovie(id2);
+
+            // Assert
+            Assert.IsType<NotFoundResult>(notFoundResult.Result);
+            Assert.IsType<OkObjectResult>(okResult.Result);
+
+            var item = okResult.Result as OkObjectResult;
+
+            Assert.IsType<Movie>(item.Value);
+
+            var movieItem = item.Value as Movie;
+            Assert.Equal(id1, movieItem.Id);
+            Assert.Equal("Die Hard", movieItem.Title);
+        }
+
     }
 }
