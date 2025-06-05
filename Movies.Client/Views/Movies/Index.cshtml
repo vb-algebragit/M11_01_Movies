@@ -6,6 +6,19 @@
 
 <h1>Index</h1>
 
+<form method="get" asp-action="Search">
+    <input type="text" name="filter" placeholder="Search by title or genre" value="@ViewBag.Filter" />
+    <select name="orderBy" value="@ViewBag.OrderBy">
+        <option value="asc" selected="@(ViewBag.OrderBy == "asc" ? "selected" : null)">Ascending</option>
+        <option value="desc" selected="@(ViewBag.OrderBy == "desc" ? "selected" : null)">Descending</option>
+    </select>
+    <input type="number" name="perPage" min="0" placeholder="Per page (0 = all)" value="@ViewBag.PerPage" />
+    <button type="submit">Search</button>
+    <a href="/Movies" class="btn btn-secondary">Reset</a>
+</form>
+
+<hr />
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
