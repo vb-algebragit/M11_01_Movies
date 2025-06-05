@@ -97,7 +97,7 @@ namespace Movies.API.Controllers
                     return NotFound($"Movie with Id = {id} not found");
                 }
 
-                return Ok(_movieRepository.UpdateMovie(updatedMovie));
+                return Ok(_movieRepository.UpdateMovie(movie));
             }
             catch (Exception)
             {
