@@ -137,5 +137,24 @@ namespace Movies.Test
             Assert.Equal(4, listMovies.Count());
         }
 
+        [Theory]
+        [InlineData(5000)]
+        public void Remove_GetNonExitingMovieById_ReturnsNotFoundResult(int id)
+        {
+            // Arrange
+            // Act
+            var notFoundResult = _controller.DeleteMovie(id);
+
+            // Assert
+            var result = _controller.GetMovies();
+            Assert.IsType<OkObjectResult>(result.Result);
+            var list = result.Result as OkObjectResult;
+            Assert.IsType<List<Movie>>(list.Value);
+            var listMovies = list.Value as List<Movie>;
+
+            Assert.IsType<NotFoundObjectResult>(notFoundResult);
+            Assert.Equal(4, listMovies.Count());
+        }
+
     }
 }
