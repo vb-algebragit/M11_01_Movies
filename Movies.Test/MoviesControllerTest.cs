@@ -98,5 +98,25 @@ namespace Movies.Test
             Assert.IsType<CreatedAtActionResult>(createdResponse);
         }
 
+        [Fact]
+        public void Add_InvalidObjectPassed_ReturnsBadRequest()
+        {
+            // Arrange
+            var titleAndIdMissingMovie = new Movie()
+            {
+                Genre = "Crime-Drama",
+                ReleaseYear = "1972"
+            };
+
+            // Act
+            _controller.ModelState.AddModelError("Id", "Id is a requried filed");
+            _controller.ModelState.AddModelError("Title", "Title is a requried filed");
+
+            var badResponse = _controller.PostMovie(titleAndIdMissingMovie);
+
+            // Assert
+            Assert.IsType<BadRequestResult>(badResponse);
+        }
+
     }
 }
